@@ -1,0 +1,455 @@
+Screens:
+  scrWeak:
+    Properties:
+      Fill: =RGBA(247, 246, 242, 1)
+      OnVisible: |-
+        =Set(varWeakLoad, "loading");
+        IfError(ClearCollect(colWeak, BokiWeakList), Set(varWeakLoad, "error"), Set(varWeakLoad, "ok"))
+    Children:
+      - conscrWeakRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =0
+            PaddingTop: =0
+            PaddingRight: =0
+            PaddingBottom: =0
+            PaddingLeft: =0
+            Fill: =RGBA(247, 246, 242, 1)
+            DropShadow: =DropShadow.None
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+            X: =0
+            Y: =0
+          Children:
+            - conWeakTop:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Horizontal
+                  LayoutAlignItems: =LayoutAlignItems.Center
+                  LayoutGap: =8
+                  PaddingTop: =10
+                  PaddingRight: =16
+                  PaddingBottom: =10
+                  PaddingLeft: =16
+                  Fill: =RGBA(0, 0, 0, 0)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =0
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Height: =64
+                  Width: =Min(560, Parent.Width)
+                Children:
+                  - btnWeakBack:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="‹ 戻る"
+                        OnSelect: =Navigate(Screen1)
+                        Height: =44
+                        LayoutMinHeight: =44
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Size: =15
+                        Layout: =ButtonLayout.TextOnly
+                        Appearance: =ButtonAppearance.Outline
+                        BasePaletteColor: =RGBA(46, 94, 110, 1)
+                        AccessibleLabel: ="戻る"
+                        Width: =88
+                  - lblWeakTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="苦手リスト"
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Center
+                        LayoutMinWidth: =0
+                        FillPortions: =1
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =44
+                        LayoutMinHeight: =44
+                        VerticalAlign: =VerticalAlign.Middle
+                  - lblWeakTopPad:
+                      Control: ModernText
+                      Properties:
+                        Text: =""
+                        Size: =13
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Center
+                        Height: =44
+                        LayoutMinHeight: =44
+                        Width: =88
+            - conWeakBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =12
+                  PaddingTop: =8
+                  PaddingRight: =16
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  Fill: =RGBA(0, 0, 0, 0)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =1
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Width: =Min(560, Parent.Width)
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                Children:
+                  - lblWeakCount:
+                      Control: ModernText
+                      Properties:
+                        Text: ="苦手 " & Switch(varWeakLoad, "loading", "—", "error", "—", CountRows(colWeak) & "問")
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =30
+                        LayoutMinHeight: =30
+                  - lblWeakOrder:
+                      Control: ModernText
+                      Properties:
+                        Text: ="誤答回数の多い順（同数は最後に間違えた日時の新しい順）"
+                        Size: =13
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(90, 95, 102, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =20
+                        LayoutMinHeight: =20
+                  - lblWeakLoading:
+                      Control: ModernText
+                      Properties:
+                        Text: ="読み込み中…"
+                        Size: =17
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =30
+                        LayoutMinHeight: =30
+                        Visible: =varWeakLoad = "loading"
+                  - lblWeakErr:
+                      Control: ModernText
+                      Properties:
+                        Text: ="! 苦手リストを読み込めませんでした"
+                        Size: =15
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(122, 83, 0, 1)
+                        Wrap: =true
+                        PaddingTop: =6
+                        PaddingBottom: =6
+                        PaddingLeft: =6
+                        PaddingRight: =6
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =40
+                        LayoutMinHeight: =40
+                        Fill: =RGBA(255, 244, 214, 1)
+                        Visible: =varWeakLoad = "error"
+                  - btnWeakRetry:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="再読み込み"
+                        OnSelect: =Set(varWeakLoad, "loading"); IfError(ClearCollect(colWeak, BokiWeakList), Set(varWeakLoad, "error"), Set(varWeakLoad, "ok"))
+                        Height: =44
+                        LayoutMinHeight: =44
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Size: =15
+                        Layout: =ButtonLayout.TextOnly
+                        Appearance: =ButtonAppearance.Outline
+                        BasePaletteColor: =RGBA(46, 94, 110, 1)
+                        AccessibleLabel: ="再読み込み"
+                        Visible: =varWeakLoad = "error"
+                  - lblWeakEmpty:
+                      Control: ModernText
+                      Properties:
+                        Text: ="苦手問題はありません" & Char(10) & "間違えた問題がここに入ります"
+                        Size: =17
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =60
+                        LayoutMinHeight: =60
+                        Visible: =varWeakLoad = "ok" && IsEmpty(colWeak)
+                  - galWeak:
+                      Control: Gallery
+                      Variant: Vertical
+                      Properties:
+                        Items: =SortByColumns(AddColumns(Filter(nfQuestions, Id in colWeak.Title) As qq, Miss, LookUp(colWeak, Title = qq.Id).MissCount, Last, LookUp(colWeak, Title = qq.Id).LastMissedAt), "Miss", SortOrder.Descending, "Last", SortOrder.Descending)
+                        TemplateSize: =124
+                        TemplatePadding: =0
+                        Height: =CountRows(SortByColumns(AddColumns(Filter(nfQuestions, Id in colWeak.Title) As qq, Miss, LookUp(colWeak, Title = qq.Id).MissCount, Last, LookUp(colWeak, Title = qq.Id).LastMissedAt), "Miss", SortOrder.Descending, "Last", SortOrder.Descending)) * 124
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        ShowScrollbar: =false
+                        Selectable: =false
+                        TabIndex: =0
+                        BorderThickness: =0
+                        AccessibleLabel: ="苦手問題の一覧"
+                        Visible: =varWeakLoad = "ok" && !IsEmpty(colWeak)
+                        DelayItemLoading: =false
+                        LoadingSpinner: =LoadingSpinner.None
+                      Children:
+                        - conWeakCard:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              X: =0
+                              Y: =0
+                              Width: =Parent.TemplateWidth
+                              Height: =Parent.TemplateHeight - 8
+                              Fill: =RGBA(255, 255, 255, 1)
+                              BorderColor: =RGBA(217, 214, 207, 1)
+                              BorderThickness: =1
+                              DropShadow: =DropShadow.None
+                              LayoutDirection: =LayoutDirection.Vertical
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =4
+                              PaddingTop: =10
+                              PaddingBottom: =10
+                              PaddingLeft: =12
+                              PaddingRight: =12
+                            Children:
+                              - conWeakCardHead:
+                                  Control: GroupContainer
+                                  Variant: AutoLayout
+                                  Properties:
+                                    LayoutDirection: =LayoutDirection.Horizontal
+                                    LayoutAlignItems: =LayoutAlignItems.Stretch
+                                    LayoutGap: =8
+                                    PaddingTop: =0
+                                    PaddingRight: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    Fill: =RGBA(0, 0, 0, 0)
+                                    DropShadow: =DropShadow.None
+                                    LayoutMinWidth: =0
+                                    LayoutMinHeight: =0
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    RadiusTopLeft: =0
+                                    RadiusTopRight: =0
+                                    RadiusBottomLeft: =0
+                                    RadiusBottomRight: =0
+                                    Height: =22
+                                  Children:
+                                    - lblWeakCardMethod:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: =If(ThisItem.Method = "", ThisItem.Category, ThisItem.Method & "・" & ThisItem.Category)
+                                          Size: =13
+                                          FontWeight: =FontWeight.Semibold
+                                          Color: =Switch(ThisItem.Method, "三分法", RGBA(47, 75, 138, 1), "売上原価対立法", RGBA(122, 74, 30, 1), "分記法", RGBA(47, 107, 69, 1), RGBA(90, 95, 102, 1))
+                                          Wrap: =true
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          Align: =Align.Left
+                                          LayoutMinWidth: =0
+                                          FillPortions: =1
+                                          AlignInContainer: =AlignInContainer.Stretch
+                                          Height: =22
+                                          LayoutMinHeight: =22
+                                    - lblWeakCardMiss:
+                                        Control: ModernText
+                                        Properties:
+                                          Text: ="誤答 " & ThisItem.Miss & "回"
+                                          Size: =14
+                                          FontWeight: =FontWeight.Bold
+                                          Color: =RGBA(31, 35, 40, 1)
+                                          Wrap: =true
+                                          PaddingTop: =0
+                                          PaddingBottom: =0
+                                          PaddingLeft: =0
+                                          PaddingRight: =0
+                                          Align: =Align.Right
+                                          LayoutMinWidth: =0
+                                          FillPortions: =0
+                                          AlignInContainer: =AlignInContainer.Center
+                                          Height: =22
+                                          LayoutMinHeight: =22
+                                          Width: =88
+                              - lblWeakCardText:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =ThisItem.Text
+                                    Size: =15
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =44
+                                    LayoutMinHeight: =44
+                                    AccessibleLabel: ="誤答 " & ThisItem.Miss & "回。" & ThisItem.Text
+                              - lblWeakCardLast:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =If(IsBlank(ThisItem.Last), "", "最後に間違えた日時 " & Text(ThisItem.Last, "yyyy/mm/dd hh:mm"))
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(90, 95, 102, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =20
+                                    LayoutMinHeight: =20
+            - conWeakBottom:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  PaddingTop: =8
+                  PaddingRight: =16
+                  PaddingBottom: =12
+                  PaddingLeft: =16
+                  Fill: =RGBA(247, 246, 242, 1)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =0
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Height: =96
+                  Width: =Min(560, Parent.Width)
+                Children:
+                  - lblWeakStartInfo:
+                      Control: ModernText
+                      Properties:
+                        Text: =Switch(varWeakLoad, "loading", "読み込み中…", "error", "苦手リストを読み込めないため開始できません", If(IsEmpty(colWeak), "苦手問題がないため開始できません", CountRows(Filter(nfQuestions, Id in colWeak.Title)) & "問・3分"))
+                        Size: =13
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(90, 95, 102, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =20
+                        LayoutMinHeight: =20
+                  - btnWeakStart:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="苦手問題で再挑戦"
+                        OnSelect: |-
+                          =Set(varScope, "苦手");
+                          Set(varIsWeakDrill, true);
+                          Set(varOrigin, "scrWeak");
+                          If(varIsWeakDrill, IfError(ClearCollect(colWeak, BokiWeakList), Set(varWeakLoad, "error"), Set(varWeakLoad, "ok")));
+                          ClearCollect(colDrill, ForAll(Shuffle(If(varIsWeakDrill, Filter(nfQuestions, Id in colWeak.Title), If(varScope = "全問", nfQuestions, Filter(nfQuestions, Method = varScope)))) As p, {Id: p.Id, Seq: 0}));
+                          Set(varTotal, CountRows(colDrill));
+                          Set(varIdx, 1);
+                          Set(varQ, LookUp(nfQuestions, Id = First(colDrill).Id));
+                          Set(varScore, 0); Set(varCombo, 0); Set(varMaxCombo, 0); Set(varCorrect, 0); Set(varAnswered, 0);
+                          Set(varWeakAdded, 0); Set(varWeakRemoved, 0);
+                          Set(varGraded, false); Set(varQuitConfirm, false); Set(varEmptyError, false);
+                          Set(varWeakMsg, ""); Set(varWeakSaveFailed, false);
+                          Set(varDebRows, 1); Set(varCreRows, 1);
+                          Set(varEndReason, ""); Set(varIsNewBest, false); Set(varBestSaveFailed, false);
+                          Set(varDrillStart, Now()); Set(varNow, Now());
+                          Set(varDrillRunning, varTotal > 0);
+                          If(varTotal > 0, Navigate(scrDrill))
+                        Height: =52
+                        LayoutMinHeight: =52
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Size: =17
+                        Layout: =ButtonLayout.TextOnly
+                        Appearance: =ButtonAppearance.Primary
+                        BasePaletteColor: =RGBA(46, 94, 110, 1)
+                        AccessibleLabel: ="苦手問題で再挑戦"
+                        DisplayMode: =If(varWeakLoad <> "ok" || IsEmpty(Filter(nfQuestions, Id in colWeak.Title)), DisplayMode.Disabled, DisplayMode.Edit)

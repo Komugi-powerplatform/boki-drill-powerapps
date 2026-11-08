@@ -1,0 +1,448 @@
+Screens:
+  Screen1:
+    Properties:
+      Fill: =RGBA(247, 246, 242, 1)
+      OnVisible: |-
+        =Set(varDrillRunning, false);
+        Set(varQuitConfirm, false);
+        Set(varHomeLoad, "loading");
+        IfError(
+            ClearCollect(colWeak, BokiWeakList), Set(varHomeLoad, "error"),
+            ClearCollect(colBest, Filter(BokiBestScore, Title = "best")), Set(varHomeLoad, "error"),
+            Set(varHomeLoad, "ok")
+        )
+    Children:
+      - conScreen1Root:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =0
+            PaddingTop: =0
+            PaddingRight: =0
+            PaddingBottom: =0
+            PaddingLeft: =0
+            Fill: =RGBA(247, 246, 242, 1)
+            DropShadow: =DropShadow.None
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+            X: =0
+            Y: =0
+          Children:
+            - conHomeTop:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =0
+                  PaddingTop: =12
+                  PaddingRight: =16
+                  PaddingBottom: =12
+                  PaddingLeft: =16
+                  Fill: =RGBA(0, 0, 0, 0)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =0
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Height: =74
+                  Width: =Min(560, Parent.Width)
+                Children:
+                  - lblHomeTitle:
+                      Control: ModernText
+                      Properties:
+                        Text: ="簿記ドリル"
+                        Size: =20
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =30
+                        LayoutMinHeight: =30
+                  - lblHomeSub:
+                      Control: ModernText
+                      Properties:
+                        Text: ="全経3級 仕訳"
+                        Size: =13
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(90, 95, 102, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =20
+                        LayoutMinHeight: =20
+            - conHomeBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =16
+                  PaddingTop: =8
+                  PaddingRight: =16
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  Fill: =RGBA(0, 0, 0, 0)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =1
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Width: =Min(560, Parent.Width)
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                Children:
+                  - conHomeSummary:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        PaddingTop: =16
+                        PaddingRight: =16
+                        PaddingBottom: =16
+                        PaddingLeft: =16
+                        Fill: =RGBA(255, 255, 255, 1)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        Height: =If(varHomeLoad = "error", 252, 200)
+                        BorderColor: =RGBA(217, 214, 207, 1)
+                        BorderThickness: =1
+                        BorderStyle: =BorderStyle.Solid
+                      Children:
+                        - lblHomeBestLabel:
+                            Control: ModernText
+                            Properties:
+                              Text: ="自己ベスト"
+                              Size: =14
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(90, 95, 102, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =22
+                              LayoutMinHeight: =22
+                        - lblHomeBest:
+                            Control: ModernText
+                            Properties:
+                              Text: =Switch(varHomeLoad, "loading", "読み込み中…", "error", "—", If(IsEmpty(colBest), "まだ記録がありません", First(colBest).Score & " 点"))
+                              Size: =If(varHomeLoad = "ok" && !IsEmpty(colBest), 32, 17)
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =48
+                              LayoutMinHeight: =48
+                              AccessibleLabel: ="自己ベスト " & Self.Text
+                        - lblHomeBestAt:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(varHomeLoad = "ok" && !IsEmpty(colBest), Text(First(colBest).AchievedAt, "yyyy/mm/dd hh:mm") & " 達成", "")
+                              Size: =13
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(90, 95, 102, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =20
+                              LayoutMinHeight: =20
+                        - lblHomeWeak:
+                            Control: ModernText
+                            Properties:
+                              Text: ="苦手 " & Switch(varHomeLoad, "loading", "読み込み中…", "error", "—", CountRows(colWeak) & "問")
+                              Size: =17
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =28
+                              LayoutMinHeight: =28
+                        - lblHomeErr:
+                            Control: ModernText
+                            Properties:
+                              Text: ="! 自己ベストと苦手リストを読み込めませんでした。ドリルは始められます。"
+                              Size: =14
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(122, 83, 0, 1)
+                              Wrap: =true
+                              PaddingTop: =4
+                              PaddingBottom: =4
+                              PaddingLeft: =4
+                              PaddingRight: =4
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =48
+                              LayoutMinHeight: =48
+                              Fill: =RGBA(255, 244, 214, 1)
+                              Visible: =varHomeLoad = "error"
+                        - lblHomeRule:
+                            Control: ModernText
+                            Properties:
+                              Text: ="1回 3分・正解1問10点＋コンボボーナス"
+                              Size: =13
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(90, 95, 102, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =20
+                              LayoutMinHeight: =20
+                  - lblHomeScopeLabel:
+                      Control: ModernText
+                      Properties:
+                        Text: ="出題範囲"
+                        Size: =14
+                        FontWeight: =FontWeight.Semibold
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =22
+                        LayoutMinHeight: =22
+                  - conHomeScopes:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingTop: =0
+                        PaddingRight: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        Height: =216
+                      Children:
+                        - btnHomeScope1:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varScope = "全問", "✓ ", "") & "全問（" & CountRows(nfQuestions) & "問）"
+                              OnSelect: =Set(varScope, "全問")
+                              Height: =48
+                              LayoutMinHeight: =48
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =16
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =If(varScope = "全問", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: ="出題範囲 全問 " & CountRows(nfQuestions) & "問" & If(varScope = "全問", " 選択中", "")
+                        - btnHomeScope2:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varScope = "三分法", "✓ ", "") & "三分法（" & CountRows(Filter(nfQuestions, Method = "三分法")) & "問）"
+                              OnSelect: =Set(varScope, "三分法")
+                              Height: =48
+                              LayoutMinHeight: =48
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =16
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =If(varScope = "三分法", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: ="出題範囲 三分法 " & CountRows(Filter(nfQuestions, Method = "三分法")) & "問" & If(varScope = "三分法", " 選択中", "")
+                        - btnHomeScope3:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varScope = "売上原価対立法", "✓ ", "") & "売上原価対立法（" & CountRows(Filter(nfQuestions, Method = "売上原価対立法")) & "問）"
+                              OnSelect: =Set(varScope, "売上原価対立法")
+                              Height: =48
+                              LayoutMinHeight: =48
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =16
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =If(varScope = "売上原価対立法", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: ="出題範囲 売上原価対立法 " & CountRows(Filter(nfQuestions, Method = "売上原価対立法")) & "問" & If(varScope = "売上原価対立法", " 選択中", "")
+                        - btnHomeScope4:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varScope = "分記法", "✓ ", "") & "分記法（" & CountRows(Filter(nfQuestions, Method = "分記法")) & "問）"
+                              OnSelect: =Set(varScope, "分記法")
+                              Height: =48
+                              LayoutMinHeight: =48
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =16
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =If(varScope = "分記法", ButtonAppearance.Primary, ButtonAppearance.Outline)
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: ="出題範囲 分記法 " & CountRows(Filter(nfQuestions, Method = "分記法")) & "問" & If(varScope = "分記法", " 選択中", "")
+                  - btnHomeWeak:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="苦手リストを見る ›"
+                        OnSelect: =Navigate(scrWeak)
+                        Height: =48
+                        LayoutMinHeight: =48
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Size: =16
+                        Layout: =ButtonLayout.TextOnly
+                        Appearance: =ButtonAppearance.Outline
+                        BasePaletteColor: =RGBA(46, 94, 110, 1)
+                        AccessibleLabel: ="苦手リストを見る ›"
+            - conHomeBottom:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  PaddingTop: =8
+                  PaddingRight: =16
+                  PaddingBottom: =12
+                  PaddingLeft: =16
+                  Fill: =RGBA(247, 246, 242, 1)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =0
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Height: =96
+                  Width: =Min(560, Parent.Width)
+                Children:
+                  - lblHomeScopeInfo:
+                      Control: ModernText
+                      Properties:
+                        Text: =If(CountRows(If(varScope = "全問", nfQuestions, Filter(nfQuestions, Method = varScope))) = 0, "この範囲には問題がありません", varScope & "・" & CountRows(If(varScope = "全問", nfQuestions, Filter(nfQuestions, Method = varScope))) & "問")
+                        Size: =13
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(90, 95, 102, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =20
+                        LayoutMinHeight: =20
+                  - btnHomeStart:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="ドリル開始"
+                        OnSelect: |-
+                          =Set(varScope, varScope);
+                          Set(varIsWeakDrill, false);
+                          Set(varOrigin, "Screen1");
+                          If(varIsWeakDrill, IfError(ClearCollect(colWeak, BokiWeakList), Set(varWeakLoad, "error"), Set(varWeakLoad, "ok")));
+                          ClearCollect(colDrill, ForAll(Shuffle(If(varIsWeakDrill, Filter(nfQuestions, Id in colWeak.Title), If(varScope = "全問", nfQuestions, Filter(nfQuestions, Method = varScope)))) As p, {Id: p.Id, Seq: 0}));
+                          Set(varTotal, CountRows(colDrill));
+                          Set(varIdx, 1);
+                          Set(varQ, LookUp(nfQuestions, Id = First(colDrill).Id));
+                          Set(varScore, 0); Set(varCombo, 0); Set(varMaxCombo, 0); Set(varCorrect, 0); Set(varAnswered, 0);
+                          Set(varWeakAdded, 0); Set(varWeakRemoved, 0);
+                          Set(varGraded, false); Set(varQuitConfirm, false); Set(varEmptyError, false);
+                          Set(varWeakMsg, ""); Set(varWeakSaveFailed, false);
+                          Set(varDebRows, 1); Set(varCreRows, 1);
+                          Set(varEndReason, ""); Set(varIsNewBest, false); Set(varBestSaveFailed, false);
+                          Set(varDrillStart, Now()); Set(varNow, Now());
+                          Set(varDrillRunning, varTotal > 0);
+                          If(varTotal > 0, Navigate(scrDrill))
+                        Height: =52
+                        LayoutMinHeight: =52
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Size: =17
+                        Layout: =ButtonLayout.TextOnly
+                        Appearance: =ButtonAppearance.Primary
+                        BasePaletteColor: =RGBA(46, 94, 110, 1)
+                        AccessibleLabel: ="ドリル開始 " & varScope & " " & CountRows(If(varScope = "全問", nfQuestions, Filter(nfQuestions, Method = varScope))) & "問"
+                        DisplayMode: =If(CountRows(If(varScope = "全問", nfQuestions, Filter(nfQuestions, Method = varScope))) = 0, DisplayMode.Disabled, DisplayMode.Edit)

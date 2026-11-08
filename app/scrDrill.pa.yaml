@@ -1,0 +1,1889 @@
+Screens:
+  scrDrill:
+    Properties:
+      Fill: =RGBA(247, 246, 242, 1)
+      OnVisible: |-
+        =Set(varNow, Now());
+        Clear(colAnsR);
+        Reset(inpDrillDebAcc1);
+        Reset(inpDrillDebAcc2);
+        Reset(inpDrillDebAcc3);
+        Reset(inpDrillDebAmt1);
+        Reset(inpDrillDebAmt2);
+        Reset(inpDrillDebAmt3);
+        Reset(inpDrillCreAcc1);
+        Reset(inpDrillCreAcc2);
+        Reset(inpDrillCreAcc3);
+        Reset(inpDrillCreAmt1);
+        Reset(inpDrillCreAmt2);
+        Reset(inpDrillCreAmt3)
+    Children:
+      - conscrDrillRoot:
+          Control: GroupContainer
+          Variant: AutoLayout
+          Properties:
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutGap: =0
+            PaddingTop: =0
+            PaddingRight: =0
+            PaddingBottom: =0
+            PaddingLeft: =0
+            Fill: =RGBA(247, 246, 242, 1)
+            DropShadow: =DropShadow.None
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            Width: =Parent.Width
+            Height: =Parent.Height
+            X: =0
+            Y: =0
+          Children:
+            - conDrillStatus:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =8
+                  PaddingTop: =8
+                  PaddingRight: =16
+                  PaddingBottom: =8
+                  PaddingLeft: =16
+                  Fill: =RGBA(255, 255, 255, 1)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =0
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Height: =94
+                  Width: =Min(560, Parent.Width)
+                Children:
+                  - conDrillStatus1:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Center
+                        LayoutGap: =8
+                        PaddingTop: =0
+                        PaddingRight: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        Height: =44
+                      Children:
+                        - lblDrillRemain:
+                            Control: ModernText
+                            Properties:
+                              Text: ="残り " & Int(Max(0, 180 - DateDiff(varDrillStart, varNow, TimeUnit.Seconds)) / 60) & ":" & Text(Mod(Max(0, 180 - DateDiff(varDrillStart, varNow, TimeUnit.Seconds)), 60), "00")
+                              Size: =20
+                              FontWeight: =FontWeight.Bold
+                              Color: =If(Max(0, 180 - DateDiff(varDrillStart, varNow, TimeUnit.Seconds)) <= 30, RGBA(161, 38, 43, 1), RGBA(31, 35, 40, 1))
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =44
+                              LayoutMinHeight: =44
+                              VerticalAlign: =VerticalAlign.Middle
+                        - lblDrillNo:
+                            Control: ModernText
+                            Properties:
+                              Text: ="第" & varIdx & "問 / " & varTotal
+                              Size: =14
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(90, 95, 102, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Right
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Center
+                              Height: =44
+                              LayoutMinHeight: =44
+                              Width: =96
+                              VerticalAlign: =VerticalAlign.Middle
+                        - btnDrillQuit:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="中断"
+                              OnSelect: =Set(varQuitConfirm, true)
+                              Height: =44
+                              LayoutMinHeight: =44
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =15
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =ButtonAppearance.Outline
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: ="ドリルを中断"
+                              DisplayMode: =If(varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                              Width: =72
+                  - conDrillStatus2:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingTop: =0
+                        PaddingRight: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        Height: =26
+                      Children:
+                        - lblDrillCorrect:
+                            Control: ModernText
+                            Properties:
+                              Text: ="正解 " & varCorrect
+                              Size: =15
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =26
+                              LayoutMinHeight: =26
+                        - lblDrillCombo:
+                            Control: ModernText
+                            Properties:
+                              Text: ="コンボ " & varCombo
+                              Size: =15
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =26
+                              LayoutMinHeight: =26
+                        - lblDrillScore:
+                            Control: ModernText
+                            Properties:
+                              Text: ="得点 " & varScore
+                              Size: =15
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Right
+                              LayoutMinWidth: =0
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =26
+                              LayoutMinHeight: =26
+                  - tmrDrill:
+                      Control: Timer
+                      Properties:
+                        Duration: =1000
+                        Repeat: =true
+                        AutoStart: =false
+                        AutoPause: =true
+                        Start: =varDrillRunning
+                        OnTimerEnd: |-
+                          =Set(varNow, Now());
+                          If(varDrillRunning && DateDiff(varDrillStart, varNow, TimeUnit.Seconds) >= 180,
+                              Set(varEndReason, "時間切れ");
+                          Set(varDrillRunning, false);
+                          Set(varQuitConfirm, false);
+                          IfError(
+                              ClearCollect(colBest, Filter(BokiBestScore, Title = "best")),
+                              Set(varBestSaveFailed, true)
+                          );
+                          Set(varHadBest, !IsEmpty(colBest));
+                          Set(varPrevBest, If(IsEmpty(colBest), 0, First(colBest).Score));
+                          Set(varIsNewBest, !varBestSaveFailed && (IsEmpty(colBest) || varScore > First(colBest).Score));
+                          If(varIsNewBest,
+                              If(IsError(
+                                  If(IsEmpty(colBest),
+                                      Patch(BokiBestScore, Defaults(BokiBestScore), {Title: "best", Score: varScore, AchievedAt: Now()}),
+                                      Patch(BokiBestScore, First(colBest), {Score: varScore, AchievedAt: Now()})
+                                  )),
+                                  Set(varBestSaveFailed, true)
+                              )
+                          );
+                          Navigate(scrResult)
+                          )
+                        Visible: =false
+                        Height: =0
+                        Width: =0
+                        FillPortions: =0
+                        LayoutMinHeight: =0
+                        LayoutMinWidth: =0
+            - conDrillBody:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =12
+                  PaddingTop: =12
+                  PaddingRight: =16
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  Fill: =RGBA(0, 0, 0, 0)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =1
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Width: =Min(560, Parent.Width)
+                  LayoutOverflowY: =LayoutOverflow.Scroll
+                Children:
+                  - conDrillVerdict:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =4
+                        PaddingTop: =12
+                        PaddingRight: =12
+                        PaddingBottom: =12
+                        PaddingLeft: =12
+                        Fill: =If(varLastCorrect, RGBA(230, 242, 234, 1), RGBA(248, 231, 231, 1))
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        Height: =130
+                        BorderColor: =RGBA(217, 214, 207, 1)
+                        BorderThickness: =1
+                        BorderStyle: =BorderStyle.Solid
+                        Visible: =varGraded
+                      Children:
+                        - lblDrillVerdict:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(varLastCorrect, "○ 正解", "× 不正解")
+                              Size: =20
+                              FontWeight: =FontWeight.Bold
+                              Color: =If(varLastCorrect, RGBA(30, 107, 58, 1), RGBA(161, 38, 43, 1))
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =30
+                              LayoutMinHeight: =30
+                        - lblDrillGain:
+                            Control: ModernText
+                            Properties:
+                              Text: =If(varLastCorrect, "+10点" & If(varLastBonus > 0, "（コンボボーナス +" & varLastBonus & "点）", ""), "コンボは0に戻りました")
+                              Size: =15
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =24
+                              LayoutMinHeight: =24
+                        - lblDrillWeakMsg:
+                            Control: ModernText
+                            Properties:
+                              Text: =varWeakMsg
+                              Size: =14
+                              FontWeight: =FontWeight.Normal
+                              Color: =If(varWeakSaveFailed, RGBA(122, 83, 0, 1), RGBA(31, 35, 40, 1))
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =44
+                              LayoutMinHeight: =44
+                              Fill: =If(varWeakSaveFailed, RGBA(255, 244, 214, 1), RGBA(0, 0, 0, 0))
+                  - lblDrillMethod:
+                      Control: ModernText
+                      Properties:
+                        Text: ="記帳方式：" & varQ.Method
+                        Size: =18
+                        FontWeight: =FontWeight.Bold
+                        Color: =RGBA(255, 255, 255, 1)
+                        Wrap: =true
+                        PaddingTop: =8
+                        PaddingBottom: =8
+                        PaddingLeft: =8
+                        PaddingRight: =8
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =44
+                        LayoutMinHeight: =44
+                        Fill: =Switch(varQ.Method, "三分法", RGBA(47, 75, 138, 1), "売上原価対立法", RGBA(122, 74, 30, 1), "分記法", RGBA(47, 107, 69, 1), RGBA(31, 35, 40, 1))
+                        Visible: =varQ.Method <> ""
+                        VerticalAlign: =VerticalAlign.Middle
+                  - lblDrillText:
+                      Control: ModernText
+                      Properties:
+                        Text: =varQ.Text
+                        Size: =17
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =12
+                        PaddingBottom: =12
+                        PaddingLeft: =12
+                        PaddingRight: =12
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        AutoHeight: =true
+                        LayoutMinHeight: =60
+                        Height: =60
+                        Fill: =RGBA(255, 255, 255, 1)
+                        AccessibleLabel: =If(varQ.Method <> "", "記帳方式 " & varQ.Method & "。", "") & varQ.Text
+                  - lblDrillEmpty:
+                      Control: ModernText
+                      Properties:
+                        Text: ="科目名と金額を入力してください"
+                        Size: =14
+                        FontWeight: =FontWeight.Semibold
+                        Color: =RGBA(161, 38, 43, 1)
+                        Wrap: =true
+                        PaddingTop: =6
+                        PaddingBottom: =6
+                        PaddingLeft: =6
+                        PaddingRight: =6
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =36
+                        LayoutMinHeight: =36
+                        Fill: =RGBA(248, 231, 231, 1)
+                        Visible: =varEmptyError && !varGraded
+                  - conDrillDeb:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingTop: =0
+                        PaddingRight: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        Height: =24 + 8 + 20 + 8 + varDebRows * 56 + If(varGraded, 0, 52)
+                      Children:
+                        - conDrillDebHead:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =24
+                            Children:
+                              - lblDrillDebTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="借方"
+                                    Size: =14
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =24
+                                    LayoutMinHeight: =24
+                              - lblDrillDebCount:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="行数が違います"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(161, 38, 43, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Right
+                                    LayoutMinWidth: =0
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =24
+                                    LayoutMinHeight: =24
+                                    Visible: =varGraded && CountRows(Filter(colAnsR, Side = "借方")) <> CountRows(Filter(nfLines, QId = varQ.Id && Side = "借方"))
+                        - conDrillDebCols:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =20
+                            Children:
+                              - lblDrillDebColAcc:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="科目名"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(90, 95, 102, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =20
+                                    LayoutMinHeight: =20
+                              - lblDrillDebColAmt:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="金額"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(90, 95, 102, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Right
+                                    LayoutMinWidth: =0
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =20
+                                    LayoutMinHeight: =20
+                                    Width: =104
+                              - lblDrillDebColPad:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =20
+                                    LayoutMinHeight: =20
+                                    Width: =44
+                        - conDrillDebRow1:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =48
+                              Visible: =varDebRows >= 1
+                            Children:
+                              - inpDrillDebAcc1:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="借方 1行目 科目名"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 1)) && !LookUp(colAnsR, Side = "借方" && RowNo = 1).OK, ValidationState.Error, ValidationState.None)
+                              - inpDrillDebAmt1:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="借方 1行目 金額"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 1)) && !LookUp(colAnsR, Side = "借方" && RowNo = 1).OK, ValidationState.Error, ValidationState.None)
+                                    Width: =104
+                                    Align: =Align.Right
+                              - btnDrillDebDel1:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="×"
+                                    OnSelect: =Reset(inpDrillDebAcc1); Reset(inpDrillDebAmt1)
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Size: =16
+                                    Layout: =ButtonLayout.TextOnly
+                                    Appearance: =ButtonAppearance.Outline
+                                    BasePaletteColor: =RGBA(46, 94, 110, 1)
+                                    AccessibleLabel: ="借方 1行目を削除"
+                                    DisplayMode: =If(varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                                    Visible: =!varGraded
+                                    Width: =44
+                              - lblDrillDebGap1:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =!varGraded && 1 > 1 && varDebRows <> 1
+                                    Width: =44
+                              - lblDrillDebMark1:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =If(IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 1)), "", If(LookUp(colAnsR, Side = "借方" && RowNo = 1).OK, "○", "×"))
+                                    Size: =20
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =If(LookUp(colAnsR, Side = "借方" && RowNo = 1).OK, RGBA(30, 107, 58, 1), RGBA(161, 38, 43, 1))
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Center
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =varGraded
+                                    Width: =44
+                                    AccessibleLabel: ="借方 1行目 " & If(IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 1)), "未入力", If(LookUp(colAnsR, Side = "借方" && RowNo = 1).OK, "正しい", "誤り"))
+                                    VerticalAlign: =VerticalAlign.Middle
+                        - conDrillDebRow2:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =48
+                              Visible: =varDebRows >= 2
+                            Children:
+                              - inpDrillDebAcc2:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="借方 2行目 科目名"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 2)) && !LookUp(colAnsR, Side = "借方" && RowNo = 2).OK, ValidationState.Error, ValidationState.None)
+                              - inpDrillDebAmt2:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="借方 2行目 金額"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 2)) && !LookUp(colAnsR, Side = "借方" && RowNo = 2).OK, ValidationState.Error, ValidationState.None)
+                                    Width: =104
+                                    Align: =Align.Right
+                              - btnDrillDebDel2:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="×"
+                                    OnSelect: =Reset(inpDrillDebAcc2); Reset(inpDrillDebAmt2); Set(varDebRows, varDebRows - 1)
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Size: =16
+                                    Layout: =ButtonLayout.TextOnly
+                                    Appearance: =ButtonAppearance.Outline
+                                    BasePaletteColor: =RGBA(46, 94, 110, 1)
+                                    AccessibleLabel: ="借方 2行目を削除"
+                                    DisplayMode: =If(varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                                    Visible: =!varGraded && varDebRows = 2
+                                    Width: =44
+                              - lblDrillDebGap2:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =!varGraded && 2 > 1 && varDebRows <> 2
+                                    Width: =44
+                              - lblDrillDebMark2:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =If(IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 2)), "", If(LookUp(colAnsR, Side = "借方" && RowNo = 2).OK, "○", "×"))
+                                    Size: =20
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =If(LookUp(colAnsR, Side = "借方" && RowNo = 2).OK, RGBA(30, 107, 58, 1), RGBA(161, 38, 43, 1))
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Center
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =varGraded
+                                    Width: =44
+                                    AccessibleLabel: ="借方 2行目 " & If(IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 2)), "未入力", If(LookUp(colAnsR, Side = "借方" && RowNo = 2).OK, "正しい", "誤り"))
+                                    VerticalAlign: =VerticalAlign.Middle
+                        - conDrillDebRow3:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =48
+                              Visible: =varDebRows >= 3
+                            Children:
+                              - inpDrillDebAcc3:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="借方 3行目 科目名"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 3)) && !LookUp(colAnsR, Side = "借方" && RowNo = 3).OK, ValidationState.Error, ValidationState.None)
+                              - inpDrillDebAmt3:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="借方 3行目 金額"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 3)) && !LookUp(colAnsR, Side = "借方" && RowNo = 3).OK, ValidationState.Error, ValidationState.None)
+                                    Width: =104
+                                    Align: =Align.Right
+                              - btnDrillDebDel3:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="×"
+                                    OnSelect: =Reset(inpDrillDebAcc3); Reset(inpDrillDebAmt3); Set(varDebRows, varDebRows - 1)
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Size: =16
+                                    Layout: =ButtonLayout.TextOnly
+                                    Appearance: =ButtonAppearance.Outline
+                                    BasePaletteColor: =RGBA(46, 94, 110, 1)
+                                    AccessibleLabel: ="借方 3行目を削除"
+                                    DisplayMode: =If(varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                                    Visible: =!varGraded && varDebRows = 3
+                                    Width: =44
+                              - lblDrillDebGap3:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =!varGraded && 3 > 1 && varDebRows <> 3
+                                    Width: =44
+                              - lblDrillDebMark3:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =If(IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 3)), "", If(LookUp(colAnsR, Side = "借方" && RowNo = 3).OK, "○", "×"))
+                                    Size: =20
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =If(LookUp(colAnsR, Side = "借方" && RowNo = 3).OK, RGBA(30, 107, 58, 1), RGBA(161, 38, 43, 1))
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Center
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =varGraded
+                                    Width: =44
+                                    AccessibleLabel: ="借方 3行目 " & If(IsBlank(LookUp(colAnsR, Side = "借方" && RowNo = 3)), "未入力", If(LookUp(colAnsR, Side = "借方" && RowNo = 3).OK, "正しい", "誤り"))
+                                    VerticalAlign: =VerticalAlign.Middle
+                        - btnDrillDebAdd:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varDebRows >= 3, "借方は3行まで", "+ 借方の行を追加")
+                              OnSelect: =Set(varDebRows, Min(3, varDebRows + 1))
+                              Height: =44
+                              LayoutMinHeight: =44
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =15
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =ButtonAppearance.Outline
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: =If(varDebRows >= 3, "借方は3行まで", "+ 借方の行を追加")
+                              DisplayMode: =If(varDebRows >= 3 || varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                              Visible: =!varGraded
+                  - conDrillCre:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingTop: =0
+                        PaddingRight: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        Height: =24 + 8 + 20 + 8 + varCreRows * 56 + If(varGraded, 0, 52)
+                      Children:
+                        - conDrillCreHead:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =24
+                            Children:
+                              - lblDrillCreTitle:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="貸方"
+                                    Size: =14
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =24
+                                    LayoutMinHeight: =24
+                              - lblDrillCreCount:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="行数が違います"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(161, 38, 43, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Right
+                                    LayoutMinWidth: =0
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =24
+                                    LayoutMinHeight: =24
+                                    Visible: =varGraded && CountRows(Filter(colAnsR, Side = "貸方")) <> CountRows(Filter(nfLines, QId = varQ.Id && Side = "貸方"))
+                        - conDrillCreCols:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Stretch
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =20
+                            Children:
+                              - lblDrillCreColAcc:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="科目名"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(90, 95, 102, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Height: =20
+                                    LayoutMinHeight: =20
+                              - lblDrillCreColAmt:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: ="金額"
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(90, 95, 102, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Right
+                                    LayoutMinWidth: =0
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =20
+                                    LayoutMinHeight: =20
+                                    Width: =104
+                              - lblDrillCreColPad:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =0
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =20
+                                    LayoutMinHeight: =20
+                                    Width: =44
+                        - conDrillCreRow1:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =48
+                              Visible: =varCreRows >= 1
+                            Children:
+                              - inpDrillCreAcc1:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="貸方 1行目 科目名"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 1)) && !LookUp(colAnsR, Side = "貸方" && RowNo = 1).OK, ValidationState.Error, ValidationState.None)
+                              - inpDrillCreAmt1:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="貸方 1行目 金額"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 1)) && !LookUp(colAnsR, Side = "貸方" && RowNo = 1).OK, ValidationState.Error, ValidationState.None)
+                                    Width: =104
+                                    Align: =Align.Right
+                              - btnDrillCreDel1:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="×"
+                                    OnSelect: =Reset(inpDrillCreAcc1); Reset(inpDrillCreAmt1)
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Size: =16
+                                    Layout: =ButtonLayout.TextOnly
+                                    Appearance: =ButtonAppearance.Outline
+                                    BasePaletteColor: =RGBA(46, 94, 110, 1)
+                                    AccessibleLabel: ="貸方 1行目を削除"
+                                    DisplayMode: =If(varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                                    Visible: =!varGraded
+                                    Width: =44
+                              - lblDrillCreGap1:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =!varGraded && 1 > 1 && varCreRows <> 1
+                                    Width: =44
+                              - lblDrillCreMark1:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =If(IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 1)), "", If(LookUp(colAnsR, Side = "貸方" && RowNo = 1).OK, "○", "×"))
+                                    Size: =20
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =If(LookUp(colAnsR, Side = "貸方" && RowNo = 1).OK, RGBA(30, 107, 58, 1), RGBA(161, 38, 43, 1))
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Center
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =varGraded
+                                    Width: =44
+                                    AccessibleLabel: ="貸方 1行目 " & If(IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 1)), "未入力", If(LookUp(colAnsR, Side = "貸方" && RowNo = 1).OK, "正しい", "誤り"))
+                                    VerticalAlign: =VerticalAlign.Middle
+                        - conDrillCreRow2:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =48
+                              Visible: =varCreRows >= 2
+                            Children:
+                              - inpDrillCreAcc2:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="貸方 2行目 科目名"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 2)) && !LookUp(colAnsR, Side = "貸方" && RowNo = 2).OK, ValidationState.Error, ValidationState.None)
+                              - inpDrillCreAmt2:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="貸方 2行目 金額"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 2)) && !LookUp(colAnsR, Side = "貸方" && RowNo = 2).OK, ValidationState.Error, ValidationState.None)
+                                    Width: =104
+                                    Align: =Align.Right
+                              - btnDrillCreDel2:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="×"
+                                    OnSelect: =Reset(inpDrillCreAcc2); Reset(inpDrillCreAmt2); Set(varCreRows, varCreRows - 1)
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Size: =16
+                                    Layout: =ButtonLayout.TextOnly
+                                    Appearance: =ButtonAppearance.Outline
+                                    BasePaletteColor: =RGBA(46, 94, 110, 1)
+                                    AccessibleLabel: ="貸方 2行目を削除"
+                                    DisplayMode: =If(varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                                    Visible: =!varGraded && varCreRows = 2
+                                    Width: =44
+                              - lblDrillCreGap2:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =!varGraded && 2 > 1 && varCreRows <> 2
+                                    Width: =44
+                              - lblDrillCreMark2:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =If(IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 2)), "", If(LookUp(colAnsR, Side = "貸方" && RowNo = 2).OK, "○", "×"))
+                                    Size: =20
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =If(LookUp(colAnsR, Side = "貸方" && RowNo = 2).OK, RGBA(30, 107, 58, 1), RGBA(161, 38, 43, 1))
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Center
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =varGraded
+                                    Width: =44
+                                    AccessibleLabel: ="貸方 2行目 " & If(IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 2)), "未入力", If(LookUp(colAnsR, Side = "貸方" && RowNo = 2).OK, "正しい", "誤り"))
+                                    VerticalAlign: =VerticalAlign.Middle
+                        - conDrillCreRow3:
+                            Control: GroupContainer
+                            Variant: AutoLayout
+                            Properties:
+                              LayoutDirection: =LayoutDirection.Horizontal
+                              LayoutAlignItems: =LayoutAlignItems.Center
+                              LayoutGap: =8
+                              PaddingTop: =0
+                              PaddingRight: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              Fill: =RGBA(0, 0, 0, 0)
+                              DropShadow: =DropShadow.None
+                              LayoutMinWidth: =0
+                              LayoutMinHeight: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              RadiusTopLeft: =0
+                              RadiusTopRight: =0
+                              RadiusBottomLeft: =0
+                              RadiusBottomRight: =0
+                              Height: =48
+                              Visible: =varCreRows >= 3
+                            Children:
+                              - inpDrillCreAcc3:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="貸方 3行目 科目名"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =1
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 3)) && !LookUp(colAnsR, Side = "貸方" && RowNo = 3).OK, ValidationState.Error, ValidationState.None)
+                              - inpDrillCreAmt3:
+                                  Control: ModernTextInput
+                                  Properties:
+                                    Default: =""
+                                    Placeholder: =""
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =0
+                                    Size: =16
+                                    Type: =TextInputType.SingleLine
+                                    TriggerOutput: =TriggerOutput.Keypress
+                                    AccessibleLabel: ="貸方 3行目 金額"
+                                    DisplayMode: =If(varGraded || varQuitConfirm, DisplayMode.View, DisplayMode.Edit)
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Stretch
+                                    Appearance: =Appearance.Outline
+                                    ValidationState: =If(varGraded && !IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 3)) && !LookUp(colAnsR, Side = "貸方" && RowNo = 3).OK, ValidationState.Error, ValidationState.None)
+                                    Width: =104
+                                    Align: =Align.Right
+                              - btnDrillCreDel3:
+                                  Control: ModernButton
+                                  Properties:
+                                    Text: ="×"
+                                    OnSelect: =Reset(inpDrillCreAcc3); Reset(inpDrillCreAmt3); Set(varCreRows, varCreRows - 1)
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Size: =16
+                                    Layout: =ButtonLayout.TextOnly
+                                    Appearance: =ButtonAppearance.Outline
+                                    BasePaletteColor: =RGBA(46, 94, 110, 1)
+                                    AccessibleLabel: ="貸方 3行目を削除"
+                                    DisplayMode: =If(varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                                    Visible: =!varGraded && varCreRows = 3
+                                    Width: =44
+                              - lblDrillCreGap3:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =""
+                                    Size: =13
+                                    FontWeight: =FontWeight.Normal
+                                    Color: =RGBA(31, 35, 40, 1)
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Left
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =!varGraded && 3 > 1 && varCreRows <> 3
+                                    Width: =44
+                              - lblDrillCreMark3:
+                                  Control: ModernText
+                                  Properties:
+                                    Text: =If(IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 3)), "", If(LookUp(colAnsR, Side = "貸方" && RowNo = 3).OK, "○", "×"))
+                                    Size: =20
+                                    FontWeight: =FontWeight.Bold
+                                    Color: =If(LookUp(colAnsR, Side = "貸方" && RowNo = 3).OK, RGBA(30, 107, 58, 1), RGBA(161, 38, 43, 1))
+                                    Wrap: =true
+                                    PaddingTop: =0
+                                    PaddingBottom: =0
+                                    PaddingLeft: =0
+                                    PaddingRight: =0
+                                    Align: =Align.Center
+                                    LayoutMinWidth: =44
+                                    FillPortions: =0
+                                    AlignInContainer: =AlignInContainer.Center
+                                    Height: =48
+                                    LayoutMinHeight: =48
+                                    Visible: =varGraded
+                                    Width: =44
+                                    AccessibleLabel: ="貸方 3行目 " & If(IsBlank(LookUp(colAnsR, Side = "貸方" && RowNo = 3)), "未入力", If(LookUp(colAnsR, Side = "貸方" && RowNo = 3).OK, "正しい", "誤り"))
+                                    VerticalAlign: =VerticalAlign.Middle
+                        - btnDrillCreAdd:
+                            Control: ModernButton
+                            Properties:
+                              Text: =If(varCreRows >= 3, "貸方は3行まで", "+ 貸方の行を追加")
+                              OnSelect: =Set(varCreRows, Min(3, varCreRows + 1))
+                              Height: =44
+                              LayoutMinHeight: =44
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =15
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =ButtonAppearance.Outline
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: =If(varCreRows >= 3, "貸方は3行まで", "+ 貸方の行を追加")
+                              DisplayMode: =If(varCreRows >= 3 || varQuitConfirm, DisplayMode.Disabled, DisplayMode.Edit)
+                              Visible: =!varGraded
+                  - conDrillDetail:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Vertical
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingTop: =12
+                        PaddingRight: =12
+                        PaddingBottom: =12
+                        PaddingLeft: =12
+                        Fill: =RGBA(255, 255, 255, 1)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =8
+                        RadiusTopRight: =8
+                        RadiusBottomLeft: =8
+                        RadiusBottomRight: =8
+                        Height: =420
+                        BorderColor: =RGBA(217, 214, 207, 1)
+                        BorderThickness: =1
+                        BorderStyle: =BorderStyle.Solid
+                        Visible: =varGraded
+                      Children:
+                        - lblDrillAnsTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="正解仕訳"
+                              Size: =14
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =22
+                              LayoutMinHeight: =22
+                        - lblDrillAnsDeb:
+                            Control: ModernText
+                            Properties:
+                              Text: '="借方" & Char(10) & Concat(SortByColumns(Filter(nfLines, QId = varQ.Id && Side = "借方"), "LineNo"), Account & If(Alt <> "", "（" & Alt & " も可）", "") & "　" & Text(Amount, "#,##0"), Char(10))'
+                              Size: =16
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              LayoutMinHeight: =48
+                              Height: =48
+                        - lblDrillAnsCre:
+                            Control: ModernText
+                            Properties:
+                              Text: '="貸方" & Char(10) & Concat(SortByColumns(Filter(nfLines, QId = varQ.Id && Side = "貸方"), "LineNo"), Account & If(Alt <> "", "（" & Alt & " も可）", "") & "　" & Text(Amount, "#,##0"), Char(10))'
+                              Size: =16
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              LayoutMinHeight: =48
+                              Height: =48
+                        - lblDrillTrap:
+                            Control: ModernText
+                            Properties:
+                              Text: ="注意：ひっかけ科目　" & varQ.Traps
+                              Size: =15
+                              FontWeight: =FontWeight.Semibold
+                              Color: =RGBA(122, 83, 0, 1)
+                              Wrap: =true
+                              PaddingTop: =6
+                              PaddingBottom: =6
+                              PaddingLeft: =6
+                              PaddingRight: =6
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              LayoutMinHeight: =32
+                              Height: =32
+                              Fill: =RGBA(255, 244, 214, 1)
+                              Visible: =!varLastCorrect && varQ.Traps <> ""
+                        - lblDrillExplainTitle:
+                            Control: ModernText
+                            Properties:
+                              Text: ="解説"
+                              Size: =14
+                              FontWeight: =FontWeight.Bold
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Height: =22
+                              LayoutMinHeight: =22
+                        - lblDrillExplain:
+                            Control: ModernText
+                            Properties:
+                              Text: =varQ.Explain
+                              Size: =17
+                              FontWeight: =FontWeight.Normal
+                              Color: =RGBA(31, 35, 40, 1)
+                              Wrap: =true
+                              PaddingTop: =0
+                              PaddingBottom: =0
+                              PaddingLeft: =0
+                              PaddingRight: =0
+                              Align: =Align.Left
+                              LayoutMinWidth: =0
+                              FillPortions: =0
+                              AlignInContainer: =AlignInContainer.Stretch
+                              AutoHeight: =true
+                              LayoutMinHeight: =48
+                              Height: =48
+            - conDrillAction:
+                Control: GroupContainer
+                Variant: AutoLayout
+                Properties:
+                  LayoutDirection: =LayoutDirection.Vertical
+                  LayoutAlignItems: =LayoutAlignItems.Stretch
+                  LayoutGap: =4
+                  PaddingTop: =8
+                  PaddingRight: =16
+                  PaddingBottom: =16
+                  PaddingLeft: =16
+                  Fill: =RGBA(247, 246, 242, 1)
+                  DropShadow: =DropShadow.None
+                  LayoutMinWidth: =0
+                  LayoutMinHeight: =0
+                  FillPortions: =0
+                  AlignInContainer: =AlignInContainer.Center
+                  RadiusTopLeft: =0
+                  RadiusTopRight: =0
+                  RadiusBottomLeft: =0
+                  RadiusBottomRight: =0
+                  Height: =If(varQuitConfirm, 104, 76)
+                  Width: =Min(560, Parent.Width)
+                Children:
+                  - btnDrillSubmit:
+                      Control: ModernButton
+                      Properties:
+                        Text: ="解答を確定"
+                        OnSelect: |-
+                          =If(varGraded || varQuitConfirm, false,
+                          ClearCollect(colAns,
+                              {Side: "借方", RowNo: 1, Shown: varDebRows >= 1, RawAcc: inpDrillDebAcc1.Text, RawAmt: inpDrillDebAmt1.Text},
+                              {Side: "借方", RowNo: 2, Shown: varDebRows >= 2, RawAcc: inpDrillDebAcc2.Text, RawAmt: inpDrillDebAmt2.Text},
+                              {Side: "借方", RowNo: 3, Shown: varDebRows >= 3, RawAcc: inpDrillDebAcc3.Text, RawAmt: inpDrillDebAmt3.Text},
+                              {Side: "貸方", RowNo: 1, Shown: varCreRows >= 1, RawAcc: inpDrillCreAcc1.Text, RawAmt: inpDrillCreAmt1.Text},
+                              {Side: "貸方", RowNo: 2, Shown: varCreRows >= 2, RawAcc: inpDrillCreAcc2.Text, RawAmt: inpDrillCreAmt2.Text},
+                              {Side: "貸方", RowNo: 3, Shown: varCreRows >= 3, RawAcc: inpDrillCreAcc3.Text, RawAmt: inpDrillCreAmt3.Text}
+                          );
+                          ClearCollect(colAnsR,
+                              AddColumns(
+                                  AddColumns(
+                                      Filter(colAns, Shown && (!IsBlank(TrimEnds(Substitute(RawAcc, "　", " "))) || !IsBlank(TrimEnds(Substitute(RawAmt, "　", " "))))),
+                                      Acc, NormAcc(RawAcc),
+                                      Amt, NormAmt(RawAmt)
+                                  ) As a,
+                                  OK, !IsEmpty(Filter(nfLines As l, l.QId = varQ.Id && l.Side = a.Side && (l.Account = a.Acc || (l.Alt <> "" && l.Alt = a.Acc)) && l.Amount = a.Amt))
+                              )
+                          );
+                          If(IsEmpty(colAnsR),
+                              Set(varEmptyError, true),
+                              Set(varEmptyError, false);
+                              Set(varLastCorrect,
+                                  CountRows(Filter(colAnsR, Side = "借方")) = CountRows(Filter(nfLines, QId = varQ.Id && Side = "借方")) &&
+                                  CountRows(Filter(colAnsR, Side = "貸方")) = CountRows(Filter(nfLines, QId = varQ.Id && Side = "貸方")) &&
+                                  IsEmpty(Filter(nfLines As l, l.QId = varQ.Id && IsEmpty(Filter(colAnsR As a, a.Side = l.Side && a.OK && (l.Account = a.Acc || (l.Alt <> "" && l.Alt = a.Acc)) && l.Amount = a.Amt))))
+                              );
+                              Set(varAnswered, varAnswered + 1);
+                              Set(varWeakMsg, "");
+                              Set(varWeakSaveFailed, false);
+                              If(varLastCorrect,
+                                  Set(varCombo, varCombo + 1);
+                                  Set(varLastBonus, Min(10, 2 * (varCombo - 1)));
+                                  Set(varLastGain, 10 + varLastBonus);
+                                  Set(varScore, varScore + varLastGain);
+                                  Set(varCorrect, varCorrect + 1);
+                                  Set(varMaxCombo, Max(varMaxCombo, varCombo));
+                                  If(varIsWeakDrill,
+                                      IfError(
+                                          Remove(BokiWeakList, LookUp(BokiWeakList, Title = varQ.Id)),
+                                          Set(varWeakSaveFailed, true);
+                                          Set(varWeakMsg, "! 苦手リストから外せませんでした。この問題はリストに残ります"),
+                                          Set(varWeakRemoved, varWeakRemoved + 1);
+                                          Set(varWeakMsg, "苦手リストから外しました")
+                                      )
+                                  ),
+                                  Set(varCombo, 0);
+                                  Set(varLastBonus, 0);
+                                  Set(varLastGain, 0);
+                                  With({w: LookUp(BokiWeakList, Title = varQ.Id)},
+                                      IfError(
+                                          If(IsBlank(w),
+                                              Patch(BokiWeakList, Defaults(BokiWeakList), {Title: varQ.Id, MissCount: 1, LastMissedAt: Now()}),
+                                              Patch(BokiWeakList, w, {MissCount: w.MissCount + 1, LastMissedAt: Now()})
+                                          ),
+                                          Set(varWeakSaveFailed, true);
+                                          Set(varWeakMsg, "! 苦手リストに保存できませんでした"),
+                                          If(IsBlank(w),
+                                              Set(varWeakAdded, varWeakAdded + 1);
+                                              Set(varWeakMsg, "苦手リストに追加しました"),
+                                              Set(varWeakMsg, "苦手リストの誤答回数が " & (w.MissCount + 1) & "回 になりました")
+                                          )
+                                      )
+                                  )
+                              );
+                              Set(varGraded, true)
+                          )
+                          )
+                        Height: =52
+                        LayoutMinHeight: =52
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Size: =17
+                        Layout: =ButtonLayout.TextOnly
+                        Appearance: =ButtonAppearance.Primary
+                        BasePaletteColor: =RGBA(46, 94, 110, 1)
+                        AccessibleLabel: ="解答を確定"
+                        Visible: =!varGraded && !varQuitConfirm
+                  - btnDrillNext:
+                      Control: ModernButton
+                      Properties:
+                        Text: =If(varIdx >= varTotal, "結果を見る", "次の問題へ")
+                        OnSelect: |-
+                          =If(varIdx >= varTotal,
+                              Set(varEndReason, "全問終了");
+                          Set(varDrillRunning, false);
+                          Set(varQuitConfirm, false);
+                          IfError(
+                              ClearCollect(colBest, Filter(BokiBestScore, Title = "best")),
+                              Set(varBestSaveFailed, true)
+                          );
+                          Set(varHadBest, !IsEmpty(colBest));
+                          Set(varPrevBest, If(IsEmpty(colBest), 0, First(colBest).Score));
+                          Set(varIsNewBest, !varBestSaveFailed && (IsEmpty(colBest) || varScore > First(colBest).Score));
+                          If(varIsNewBest,
+                              If(IsError(
+                                  If(IsEmpty(colBest),
+                                      Patch(BokiBestScore, Defaults(BokiBestScore), {Title: "best", Score: varScore, AchievedAt: Now()}),
+                                      Patch(BokiBestScore, First(colBest), {Score: varScore, AchievedAt: Now()})
+                                  )),
+                                  Set(varBestSaveFailed, true)
+                              )
+                          );
+                          Navigate(scrResult),
+                              Set(varIdx, varIdx + 1);
+                              Set(varQ, LookUp(nfQuestions, Id = Index(colDrill, varIdx).Id));
+                              Set(varGraded, false);
+                              Set(varEmptyError, false);
+                              Set(varWeakMsg, "");
+                              Set(varWeakSaveFailed, false);
+                              Set(varDebRows, 1);
+                              Set(varCreRows, 1);
+                              Clear(colAnsR);
+                          Reset(inpDrillDebAcc1);
+                          Reset(inpDrillDebAcc2);
+                          Reset(inpDrillDebAcc3);
+                          Reset(inpDrillDebAmt1);
+                          Reset(inpDrillDebAmt2);
+                          Reset(inpDrillDebAmt3);
+                          Reset(inpDrillCreAcc1);
+                          Reset(inpDrillCreAcc2);
+                          Reset(inpDrillCreAcc3);
+                          Reset(inpDrillCreAmt1);
+                          Reset(inpDrillCreAmt2);
+                          Reset(inpDrillCreAmt3)
+                          )
+                        Height: =52
+                        LayoutMinHeight: =52
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Size: =17
+                        Layout: =ButtonLayout.TextOnly
+                        Appearance: =ButtonAppearance.Primary
+                        BasePaletteColor: =RGBA(46, 94, 110, 1)
+                        AccessibleLabel: =If(varIdx >= varTotal, "結果を見る", "次の問題へ")
+                        Visible: =varGraded && !varQuitConfirm
+                  - lblDrillQuitMsg:
+                      Control: ModernText
+                      Properties:
+                        Text: ="ドリルをやめますか？ 得点は自己ベストに記録されません"
+                        Size: =14
+                        FontWeight: =FontWeight.Normal
+                        Color: =RGBA(31, 35, 40, 1)
+                        Wrap: =true
+                        PaddingTop: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        PaddingRight: =0
+                        Align: =Align.Left
+                        LayoutMinWidth: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        Height: =40
+                        LayoutMinHeight: =40
+                        Visible: =varQuitConfirm
+                  - conDrillQuitBtns:
+                      Control: GroupContainer
+                      Variant: AutoLayout
+                      Properties:
+                        LayoutDirection: =LayoutDirection.Horizontal
+                        LayoutAlignItems: =LayoutAlignItems.Stretch
+                        LayoutGap: =8
+                        PaddingTop: =0
+                        PaddingRight: =0
+                        PaddingBottom: =0
+                        PaddingLeft: =0
+                        Fill: =RGBA(0, 0, 0, 0)
+                        DropShadow: =DropShadow.None
+                        LayoutMinWidth: =0
+                        LayoutMinHeight: =0
+                        FillPortions: =0
+                        AlignInContainer: =AlignInContainer.Stretch
+                        RadiusTopLeft: =0
+                        RadiusTopRight: =0
+                        RadiusBottomLeft: =0
+                        RadiusBottomRight: =0
+                        Height: =44
+                        Visible: =varQuitConfirm
+                      Children:
+                        - btnDrillQuitCancel:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="続ける"
+                              OnSelect: =Set(varQuitConfirm, false)
+                              Height: =44
+                              LayoutMinHeight: =44
+                              LayoutMinWidth: =0
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =17
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =ButtonAppearance.Outline
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: ="続ける"
+                        - btnDrillQuitOk:
+                            Control: ModernButton
+                            Properties:
+                              Text: ="やめる"
+                              OnSelect: =Set(varDrillRunning, false); Set(varQuitConfirm, false); Navigate(If(varOrigin = "scrWeak", scrWeak, Screen1))
+                              Height: =44
+                              LayoutMinHeight: =44
+                              LayoutMinWidth: =0
+                              FillPortions: =1
+                              AlignInContainer: =AlignInContainer.Stretch
+                              Size: =17
+                              Layout: =ButtonLayout.TextOnly
+                              Appearance: =ButtonAppearance.Outline
+                              BasePaletteColor: =RGBA(46, 94, 110, 1)
+                              AccessibleLabel: ="やめる"
+                              Color: =RGBA(161, 38, 43, 1)
+                              BorderColor: =RGBA(161, 38, 43, 1)

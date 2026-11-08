@@ -60,7 +60,7 @@ python3 tools/canvas/gen_screens.py app
 
 ## 解説記事
 
-- note: E-learning の習得度を確かめるアプリを Power Apps で作ってみた（公開後にリンクを追加）
+- note: [E-learning の習得度を確かめるアプリを Power Apps で作ってみた](https://note.com/quick_pipit7468/n/n8f24f52a80a6)
 
 ## ライセンス
 
